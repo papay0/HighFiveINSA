@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { MaterialModule } from '@angular/material';
+import { AngularFireModule } from 'angularfire2';
 import 'hammerjs';
 
 import { AppComponent } from './app.component';
@@ -11,6 +12,14 @@ import { PlanningComponent } from './planning/planning.component';
 import { StudentComponent } from './student/student.component';
 
 import { AppRoutingModule } from './app-routing.module';
+
+export const  firebaseConfig = {
+    apiKey: 'AIzaSyCz-zIiaaA73DIdlpOeavfSIomygIipjMk',
+    authDomain: 'highfiveinsa-24c10.firebaseapp.com',
+    databaseURL: 'https://highfiveinsa-24c10.firebaseio.com',
+    storageBucket: 'highfiveinsa-24c10.appspot.com',
+    messagingSenderId: '606256778486'
+};
 
 @NgModule({
   declarations: [
@@ -24,7 +33,8 @@ import { AppRoutingModule } from './app-routing.module';
     FormsModule,
     HttpModule,
     AppRoutingModule,
-    MaterialModule.forRoot()
+    MaterialModule.forRoot(),
+    AngularFireModule.initializeApp(firebaseConfig)
   ],
   providers: [],
   bootstrap: [AppComponent]
