@@ -1,0 +1,41 @@
+<md-card>
+  <form>
+    <table style="width: 100%" cellspacing="0">
+      <tr>
+        <td>
+          <md-input placeholder="Prénom" style="width: 100%" ></md-input>
+        </td>
+        <td>
+          <md-input placeholder="Nom" style="width: 100%"  ></md-input>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <md-input placeholder="Email"  style="width: 100%" ></md-input>
+        </td>
+        <td>
+            <md-input placeholder="Téléphone" #phoneNumber id="phoneNumber" style="width: 100%" ></md-input>
+        </td>
+      </tr>
+      <tr>
+          <td>  
+            <md-select placeholder="Spé" [(ngModel)]="selectedValue" name="spe">
+                <md-option > Info </md-option>
+                <md-option > Bio </md-option>
+                <md-option > Elec </md-option>
+                <md-option > Autre </md-option>
+            </md-select>
+        </td>
+          <td>
+            <br>
+            <button md-raised-button color="primary">CLIQUE POUR UPLOADER TON CV</button>
+          </td>
+      </tr>
+    </table>
+    <md-card-actions layout="row" layout-align="end center">
+      <button md-raised-button color="warn" style="float: right" (click)="editButtonClick()">
+          SEND IT
+        </button>
+    </md-card-actions>
+  </form>
+</md-card>

@@ -8,6 +8,7 @@ import 'hammerjs';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { PlanningComponent } from './planning/planning.component';
+import { StudentComponent } from './student/student.component';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -15,7 +16,8 @@ import { AppRoutingModule } from './app-routing.module';
   declarations: [
     AppComponent,
     HomeComponent,
-    PlanningComponent
+    PlanningComponent,
+    StudentComponent
   ],
   imports: [
     BrowserModule,
