@@ -17,13 +17,8 @@
         </md-tab>
     </md-tab-group>
    <md-card-content>
-        <md-list>
-            <md-list-item> 8h00 : Arrivée des partiticpants </md-list-item>
-            <md-list-item> 9h00-11h00 : Foot </md-list-item>
-            <md-list-item> 8h00 : Arrivée des partiticpants </md-list-item>
-            <md-list-item> 9h00-11h00 : Foot </md-list-item>
-            <md-list-item> 8h00 : Arrivée des partiticpants </md-list-item>
-            <md-list-item> 9h00-11h00 : Foot </md-list-item>
+        <md-list *ngFor="let schedule of schedules[selectedIndex]">
+            <md-list-item> {{schedule.timeTable}} - {{schedule.description}} </md-list-item>
         </md-list>
    </md-card-content>
 </md-card>
