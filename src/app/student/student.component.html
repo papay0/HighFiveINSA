@@ -28,7 +28,8 @@
         </td>
           <td>
             <br>
-            <button md-raised-button color="primary">CLIQUE POUR UPLOADER TON CV</button>
+            <input type="file" id="filebutton" value="upload" #filebtn (change)="filebuttoni($event)" class="inputfile">            
+            <label for="filebutton" md-raised-button color="primary">UPLOAD TON CV</label>
           </td>
       </tr>
     </table>
