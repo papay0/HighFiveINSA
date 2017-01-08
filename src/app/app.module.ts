@@ -6,12 +6,17 @@ import { MaterialModule } from '@angular/material';
 import { AngularFireModule } from 'angularfire2';
 import 'hammerjs';
 
+// Components
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { PlanningComponent } from './planning/planning.component';
 import { StudentComponent } from './student/student.component';
 
+// Modules
 import { AppRoutingModule } from './app-routing.module';
+
+// Services
+import { ToastService } from './_service/toast.service';
 
 export const  firebaseConfig = {
     apiKey: 'AIzaSyCz-zIiaaA73DIdlpOeavfSIomygIipjMk',
@@ -36,7 +41,7 @@ export const  firebaseConfig = {
     MaterialModule.forRoot(),
     AngularFireModule.initializeApp(firebaseConfig)
   ],
-  providers: [],
+  providers: [ToastService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

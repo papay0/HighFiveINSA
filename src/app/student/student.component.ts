@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import * as firebase from 'firebase';
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
+import { ToastService } from '../_service/toast.service';
 
 @Component({
     selector: 'app-student',
@@ -35,6 +36,7 @@ export class StudentComponent {
     urlList: FirebaseListObservable<any[]>;
 
     progress_bar = 0;
+    progress_bar_done = false;
 
     sendButtonClicked = false;
 
@@ -60,29 +62,17 @@ export class StudentComponent {
                 // this.progress_bar = percentage / 100;
                 // document.getElementById('percentageprog').innerHTML = percentage;
                 // console.log(percentage);
-                that.progress_bar = percentage;
+                that.progress_bar = percentage.toFixed(2);
+                if (percentage === 100) { // If 100% and sendButtonClicked then 
+                    that.progress_bar_done = true;
+                    if (that.sendButtonClicked) {
+                        that.toastService.show('CV envoyé !');
+                    }
+                }
+
                 console.log(that.progress_bar);
-        },
-        // this.chk()
+            },
         );
-    }
-    chk() {
-        this.interval = setInterval(() => {
-        if (this.imageuploaded === 'notSet') {
-            this.storageref = this.storage.child(this.path).getDownloadURL().then(url =>
-            this.imageuploaded = url
-            );
-        } else {
-            this.urlList.push({'path': this.path, 'image': this.imageuploaded});
-            clearInterval(this.interval);
-            this.resetFunction();
-        }
-        }, 500);
-    }
-    resetFunction() {
-        document.getElementById('percentageprog').innerHTML = '';
-        this.reset = false;
-        setTimeout(() => {this.reset = true;}, 0);
     }
 
     onSubmit(event, name, familyName, phoneNumber, email, spe) {
@@ -90,9 +80,12 @@ export class StudentComponent {
         console.log('[Submit] email: ' + email + ', spe: ' + this.selectedValue);
         this.sendButtonClicked = true;
         event.preventDefault();
+        if (this.progress_bar_done) {
+            this.toastService.show('CV envoyé !');
+        }
     }
 
-  constructor(af: AngularFire) {
+  constructor(af: AngularFire, private toastService: ToastService) {
         this.storage = firebase.storage().ref();
         this.urlList = af.database.list('/images').map((array) => array.reverse()) as FirebaseListObservable<any[]>;
     }
