@@ -17,6 +17,7 @@ import { AppRoutingModule } from './app-routing.module';
 
 // Services
 import { ToastService } from './_service/toast.service';
+import { FirebaseService } from './_service/firebase.service';
 
 export const  firebaseConfig = {
     apiKey: 'AIzaSyCz-zIiaaA73DIdlpOeavfSIomygIipjMk',
@@ -41,7 +42,7 @@ export const  firebaseConfig = {
     MaterialModule.forRoot(),
     AngularFireModule.initializeApp(firebaseConfig)
   ],
-  providers: [ToastService],
+  providers: [ToastService, FirebaseService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

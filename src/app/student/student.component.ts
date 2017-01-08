@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import * as firebase from 'firebase';
-import { AngularFire, FirebaseListObservable } from 'angularfire2';
+import { AngularFire, FirebaseListObservable, AuthProviders, AuthMethods } from 'angularfire2';
 import { ToastService } from '../_service/toast.service';
+import { FirebaseService } from '../_service/firebase.service';
+import { IUser } from '../_model/user.model';
 
 @Component({
     selector: 'app-student',
@@ -43,6 +45,9 @@ export class StudentComponent {
     selectedValue: string;
     speOptions = ['Info', 'Bio', 'Elec'];
 
+    urlResume: string;
+    user: IUser;
+
 
     filebuttoni(event) {
         this.imageuploaded = 'notSet';
@@ -59,34 +64,41 @@ export class StudentComponent {
         task.on('state_changed',
             function progress(snapshot){
                 percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                // this.progress_bar = percentage / 100;
-                // document.getElementById('percentageprog').innerHTML = percentage;
-                // console.log(percentage);
                 that.progress_bar = percentage.toFixed(2);
-                if (percentage === 100) { // If 100% and sendButtonClicked then 
+                if (percentage === 100) {
                     that.progress_bar_done = true;
                     if (that.sendButtonClicked) {
-                        that.toastService.show('CV envoyé !');
+                        that.firebaseService.uploadResume(that.user);
                     }
                 }
 
                 console.log(that.progress_bar);
-            },
+            }, function (error) {
+                console.log('Error: ' + error);
+                that.toastService.show('Erreur lors de l\'envoie du CV ☹️');
+            }, function (success) {
+                that.urlResume = task.snapshot.downloadURL;
+                that.user.urlResume = task.snapshot.downloadURL;
+            }
         );
     }
 
-    onSubmit(event, name, familyName, phoneNumber, email, spe) {
-        console.log('[submit] You submitted a value, name: ' + name + ', familyName: ' + familyName + ', phone number: ' + phoneNumber);
-        console.log('[Submit] email: ' + email + ', spe: ' + this.selectedValue);
+    onSubmit(event, name, surname, phoneNumber, email, spe) {
+        this.user.name = name;
+        this.user.surname = surname;
+        this.user.phoneNumber = phoneNumber;
+        this.user.email = email;
+        this.user.spe = this.selectedValue;
         this.sendButtonClicked = true;
         event.preventDefault();
         if (this.progress_bar_done) {
-            this.toastService.show('CV envoyé !');
+            this.firebaseService.uploadResume(this.user);
         }
     }
 
-  constructor(af: AngularFire, private toastService: ToastService) {
+  constructor(af: AngularFire, private toastService: ToastService, private firebaseService: FirebaseService) {
         this.storage = firebase.storage().ref();
         this.urlList = af.database.list('/images').map((array) => array.reverse()) as FirebaseListObservable<any[]>;
+        this.user = {name: '', surname: '', email: '', phoneNumber: '', urlResume: '', spe: ''};
     }
 }

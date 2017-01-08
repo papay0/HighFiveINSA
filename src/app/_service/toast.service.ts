@@ -7,7 +7,7 @@ export class ToastService {
 
     show(message: string): void {
         let config = new MdSnackBarConfig();
-        config.duration = 2 * 1000;
+        config.duration = 4 * 1000;
         this.snackBar.open(message, 'OK', config);
     }
 
