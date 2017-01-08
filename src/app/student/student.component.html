@@ -3,15 +3,15 @@
     <table style="width: 100%" cellspacing="0">
       <tr>
         <td>
-          <md-input placeholder="Prénom" #name style="width: 100%" ></md-input>
+          <md-input placeholder="Prénom" #name style="width: 100%" required ></md-input>
         </td>
         <td>
-          <md-input placeholder="Nom" #familyName style="width: 100%"  ></md-input>
+          <md-input placeholder="Nom" #familyName style="width: 100%" required ></md-input>
         </td>
       </tr>
       <tr>
         <td>
-          <md-input placeholder="Email" #email style="width: 100%" ></md-input>
+          <md-input placeholder="Email" #email style="width: 100%" type="email" required></md-input>
         </td>
         <td>
             <md-input placeholder="Téléphone" #phoneNumber id="phoneNumber" style="width: 100%" ></md-input>
@@ -19,7 +19,7 @@
       </tr>
       <tr>
           <td>  
-            <md-select placeholder="Spé" #spe [(ngModel)]="selectedValue" name="spe">
+            <md-select placeholder="Spé" #spe [(ngModel)]="selectedValue" name="spe" required >
                 <md-option *ngFor="let option of speOptions" [value]="option">
                     {{option}}
                 </md-option>
@@ -37,7 +37,7 @@
         <md-progress-bar mode="determinate" value="{{progress_bar}}"></md-progress-bar> {{progress_bar}}%
     </div>
     <md-card-actions layout="row" layout-align="end center">
-        <button md-raised-button color="warn" style="float: right" type="submit">
+        <button md-raised-button color="warn" style="float: right" type="submit" [disabled]="progress_bar != 100.00">
             SEND IT
         </button>
     </md-card-actions>

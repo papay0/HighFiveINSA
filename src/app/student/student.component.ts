@@ -65,13 +65,6 @@ export class StudentComponent {
             function progress(snapshot){
                 percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
                 that.progress_bar = percentage.toFixed(2);
-                if (percentage === 100) {
-                    that.progress_bar_done = true;
-                    if (that.sendButtonClicked) {
-                        that.firebaseService.uploadResume(that.user);
-                    }
-                }
-
                 console.log(that.progress_bar);
             }, function (error) {
                 console.log('Error: ' + error);
@@ -91,9 +84,9 @@ export class StudentComponent {
         this.user.spe = this.selectedValue;
         this.sendButtonClicked = true;
         event.preventDefault();
-        if (this.progress_bar_done) {
-            this.firebaseService.uploadResume(this.user);
-        }
+
+        this.firebaseService.uploadResume(this.user);
+        console.log('Upload resume');
     }
 
   constructor(af: AngularFire, private toastService: ToastService, private firebaseService: FirebaseService) {
