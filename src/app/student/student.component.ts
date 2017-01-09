@@ -60,11 +60,13 @@ export class StudentComponent {
         let percentage;
         let set = false;
         let that = this;
-        task.on('state_changed',
+        let size = files.size;
+        if (size <= 5 * Math.pow(10, 6)) {
+            task.on('state_changed',
             function progress(snapshot){
                 percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
                 that.progress_bar = percentage.toFixed(2);
-                console.log(that.progress_bar);
+                // console.log(that.progress_bar);
             }, function (error) {
                 console.log('Error: ' + error);
                 that.toastService.show('Erreur lors de l\'envoie du CV ☹️');
@@ -73,6 +75,9 @@ export class StudentComponent {
                 that.user.urlResume = task.snapshot.downloadURL;
             }
         );
+        } else {
+            this.toastService.show('Fichier trop volumineux 🐳');
+        }
     }
 
     onSubmit(event, name, surname, phoneNumber, email, spe) {
