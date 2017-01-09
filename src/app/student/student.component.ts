@@ -47,6 +47,8 @@ export class StudentComponent {
     urlResume: string;
     user: IUser;
 
+    conditionChecked: boolean = false;
+
 
     filebuttoni(event) {
         this.imageuploaded = 'notSet';

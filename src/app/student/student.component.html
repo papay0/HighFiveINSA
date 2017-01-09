@@ -31,13 +31,17 @@
             <label for="filebutton" md-raised-button color="primary">UPLOAD TON CV</label>
           </td>
       </tr>
+      <br>
+      <md-checkbox [checked]="conditionChecked" (change)="conditionChecked = $event.checked">
+          J'accepte les <a href="https://firebase.google.com/terms/" target="_blank">termes.</a>
+      </md-checkbox>
     </table>
     <br>
     <div *ngIf="progress_bar !== 0">
         <md-progress-bar mode="determinate" value="{{progress_bar}}"></md-progress-bar> {{progress_bar}}%
     </div>
     <md-card-actions layout="row" layout-align="end center">
-        <button md-raised-button color="warn" style="float: right" type="submit" [disabled]="progress_bar != 100.00">
+        <button md-raised-button color="warn" style="float: right" type="submit" [disabled]="progress_bar != 100.00 || !conditionChecked">
             SEND IT
         </button>
     </md-card-actions>
