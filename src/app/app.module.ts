@@ -11,6 +11,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { PlanningComponent } from './planning/planning.component';
 import { StudentComponent } from './student/student.component';
+import { CompanyComponent } from './company/company.component';
 
 // Modules
 import { AppRoutingModule } from './app-routing.module';
@@ -32,7 +33,8 @@ export const  firebaseConfig = {
     AppComponent,
     HomeComponent,
     PlanningComponent,
-    StudentComponent
+    StudentComponent,
+    CompanyComponent
   ],
   imports: [
     BrowserModule,

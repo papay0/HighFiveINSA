@@ -38,7 +38,6 @@ export class StudentComponent {
     urlList: FirebaseListObservable<any[]>;
 
     progress_bar = 0;
-    progress_bar_done = false;
 
     sendButtonClicked = false;
 
