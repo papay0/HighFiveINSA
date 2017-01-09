@@ -19,6 +19,8 @@ export class CompanyComponent {
     resumes: FirebaseListObservable<any>;
     speOptions = ['Toutes', 'Info', 'Bio', 'Elec'];
     checkBoxSpe = [];
+    currentUrlResume: string;
+    window: Window;
 
     updateCheckedOptions(index, event) {
         if (index === 0) {
@@ -40,19 +42,14 @@ export class CompanyComponent {
         return checkOptions;
     }
 
+    openResume(urlResume) {
+        window.open(urlResume);
+    }
+
     constructor(af: AngularFire, private toastService: ToastService, private firebaseService: FirebaseService) {
         this.resumes = af.database.list('resumes');
         for (let _i = 0; _i < this.speOptions.length; _i++) {
             this.checkBoxSpe.push(true);
         }
     }
-
-    /*
-        <pdf-viewer [src]="{url: resume.urlResume, withCredentials: true}" 
-              [page]="page" 
-              [zoom]="3"
-              [original-size]="false" 
-              style="display: block;">
-    </pdf-viewer>
-    */
 }
