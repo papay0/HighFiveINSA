@@ -7,6 +7,7 @@ import { AngularFireModule } from 'angularfire2';
 import 'hammerjs';
 
 // Components
+import { PdfViewerComponent } from 'ng2-pdf-viewer';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { PlanningComponent } from './planning/planning.component';
@@ -19,6 +20,9 @@ import { AppRoutingModule } from './app-routing.module';
 // Services
 import { ToastService } from './_service/toast.service';
 import { FirebaseService } from './_service/firebase.service';
+
+// Pipes
+import { MyFilterResumePipe } from './_pipe/filter-resume.pipe';
 
 export const  firebaseConfig = {
     apiKey: 'AIzaSyCz-zIiaaA73DIdlpOeavfSIomygIipjMk',
@@ -34,7 +38,9 @@ export const  firebaseConfig = {
     HomeComponent,
     PlanningComponent,
     StudentComponent,
-    CompanyComponent
+    CompanyComponent,
+    PdfViewerComponent,
+    MyFilterResumePipe
   ],
   imports: [
     BrowserModule,

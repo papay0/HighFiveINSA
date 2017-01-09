@@ -10,10 +10,10 @@
     </md-card-content>
 </md-card>
 
-<div *ngFor="let resume of resumes | async">
+<div *ngFor="let resume of (resumes | async | myfilterResume: checkedOptions())">
     <md-card>
-        <md-card-title>{{resume.name}} {{resume.surname}}</md-card-title>
-        <md-card-subtitle>{{resume.spe}}</md-card-subtitle>   
+        <md-card-title>{{resume.spe}}</md-card-title>
+        <md-card-subtitle>{{resume.name}} {{resume.surname}}</md-card-subtitle>   
         <md-card-content>
             <md-input placeholder="Email" value="{{resume.email}}" #email style="width: 100%" type="email" disabled></md-input>
             <md-input placeholder="Téléphone" value="{{resume.phoneNumber}}" #phoneNumber id="phoneNumber" style="width: 100%" disabled ></md-input>
@@ -21,5 +21,5 @@
         <md-card-actions>
             <button md-button>AFFICHER RESUME</button>
         </md-card-actions>
-    </md-card>  
+    </md-card> 
 </div>

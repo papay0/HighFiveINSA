@@ -30,10 +30,29 @@ export class CompanyComponent {
         }
     }
 
+    checkedOptions() {
+        let checkOptions = [];
+        for (let _i = 0; _i < this.speOptions.length; _i++) {
+            if (this.checkBoxSpe[_i]) {
+                checkOptions.push(this.speOptions[_i]);
+            }
+        }
+        return checkOptions;
+    }
+
     constructor(af: AngularFire, private toastService: ToastService, private firebaseService: FirebaseService) {
         this.resumes = af.database.list('resumes');
         for (let _i = 0; _i < this.speOptions.length; _i++) {
             this.checkBoxSpe.push(true);
         }
     }
+
+    /*
+        <pdf-viewer [src]="{url: resume.urlResume, withCredentials: true}" 
+              [page]="page" 
+              [zoom]="3"
+              [original-size]="false" 
+              style="display: block;">
+    </pdf-viewer>
+    */
 }
