@@ -18,9 +18,16 @@
   height: 100%;
 }
 
+.flex-wrapper {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
 .custom_width {
   width: 200px;
   background: #bdbdbd;
+  flex-direction: column;
 }
 
 .buttonSidenav {
@@ -33,4 +40,14 @@
 
 .buttonSidenav:hover, .buttonSidenav:active {
   background-color: #b9b9b9;
+}
+
+.toolbar-fixed-height {
+  height: 20px;
+}
+
+:host {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }

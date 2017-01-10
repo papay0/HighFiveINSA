@@ -1,14 +1,15 @@
-<md-toolbar color="primary">
+<md-toolbar color="primary" class="toolbar-fixed-height">
     <a md-button routerLink="/home">HIGH FIVE INSA 2017</a>
 </md-toolbar>
 
 
 <md-sidenav-layout class="full_height">
     <md-sidenav #sidenav mode="side" opened="true" class="custom_width" layout="column" flex>
-        <a md-button color="accent" routerLink="/student" class="buttonSidenav">ETUDIANT</a>
-        <a md-button color="accent" routerLink="/company" class="buttonSidenav">ENTREPRISE</a>
-        <span flex class="app-sidenav-filler"></span>
-        <div layout="row" style="flex-direction: row">
+        <div class="flex-wrapper">
+            <a md-button color="accent" routerLink="/student" class="buttonSidenav">ETUDIANT</a>
+            <a md-button color="accent" routerLink="/company" class="buttonSidenav">ENTREPRISE</a>
+            <span flex class="app-sidenav-filler"></span>
+            <a md-button color="accent" (click)="goGitHub()" class="buttonSidenav">test</a>
         </div>
     </md-sidenav>
     <div flex layout="column">
