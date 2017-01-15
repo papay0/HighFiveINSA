@@ -29,6 +29,18 @@ export class CompanyComponent {
             }
         } else {
             this.checkBoxSpe[index] = event.checked;
+            let expectedNumberChecked = this.checkBoxSpe.length - 1; // all but the first one
+            let currentNumberChecked = 0;
+            for (let _i = 1; _i < this.speOptions.length; _i++) {
+                if (this.checkBoxSpe[_i] === event.checked) {
+                    currentNumberChecked += 1;
+                }
+            }
+            if (currentNumberChecked === expectedNumberChecked) { // first one change to event.checked (either all full or empty)
+                this.checkBoxSpe[0] = event.checked;
+            } else {
+                this.checkBoxSpe[0] = false; // not full
+            }
         }
     }
 
