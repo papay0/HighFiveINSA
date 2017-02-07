@@ -58,7 +58,7 @@ export class StudentComponent {
         let files = event.srcElement.files[0];
         let uploader = document.getElementById('uploader');
         let date = new Date();
-        this.path = 'resumes/' + '(' + date + ')' + files.name;
+        this.path = 'resumes/' + files.name;
         this.storageref = this.storage.child(this.path);
         let task = this.storageref.put(files);
         let imageuploaded;
