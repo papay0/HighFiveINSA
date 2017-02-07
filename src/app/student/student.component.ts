@@ -41,8 +41,9 @@ export class StudentComponent {
 
     sendButtonClicked = false;
 
-    selectedValue: string;
-    speOptions = ['Info', 'Bio', 'Elec'];
+    selectedValueSpe: string;
+    speOptions = ['No Spé', 'Info', 'Bio', 'Elec'];
+    years = ['1A', '2A', '3A', '4A', '5A', 'Autre'];
 
     urlResume: string;
     user: IUser;
@@ -82,12 +83,12 @@ export class StudentComponent {
         }
     }
 
-    onSubmit(event, name, surname, phoneNumber, email, spe) {
+    onSubmit(event, name, surname, phoneNumber, email, spe, year) {
         this.user.name = name;
         this.user.surname = surname;
         this.user.phoneNumber = phoneNumber;
         this.user.email = email;
-        this.user.spe = this.selectedValue;
+        this.user.spe = this.selectedValueSpe;
         this.sendButtonClicked = true;
         event.preventDefault();
 
@@ -98,6 +99,6 @@ export class StudentComponent {
   constructor(af: AngularFire, private toastService: ToastService, private firebaseService: FirebaseService) {
         this.storage = firebase.storage().ref();
         this.urlList = af.database.list('/images').map((array) => array.reverse()) as FirebaseListObservable<any[]>;
-        this.user = {name: '', surname: '', email: '', phoneNumber: '', urlResume: '', spe: ''};
+        this.user = {name: '', surname: '', email: '', phoneNumber: '', urlResume: '', spe: '', year: ''};
     }
 }

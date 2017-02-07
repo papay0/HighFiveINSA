@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { UserService } from './_service/user.service';
 
 @Component({
   selector: 'app-root',
@@ -12,4 +14,15 @@ export class AppComponent {
   goGitHub(): void {
     window.open(this.urlGitHub);
   }
+
+  isLoggedIn(): boolean {
+    return this.userService.isLoggedIn();
+  }
+
+  logout(): void {
+    this.userService.logout();
+    this.router.navigate(['']);
+  }
+
+  constructor(private userService: UserService, private router: Router) { }
 }

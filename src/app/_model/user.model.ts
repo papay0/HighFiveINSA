@@ -5,4 +5,5 @@ export interface IUser {
   phoneNumber?: string;
   urlResume: string;
   spe: string;
+  year: string;
 };

@@ -1,5 +1,7 @@
 <md-toolbar color="primary" class="toolbar-fixed-height">
     <a md-button routerLink="/home">HIGH FIVE INSA 2017</a>
+    <span class="app-toolbar-filler"></span>
+    <button md-raised-button color="accent" (click)="logout()" *ngIf="isLoggedIn()">LOG OUT</button>
 </md-toolbar>
 
 

@@ -10,6 +10,7 @@ import 'hammerjs';
 import { PdfViewerComponent } from 'ng2-pdf-viewer';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
+import { LoginComponent } from './login/login.component';
 import { PlanningComponent } from './planning/planning.component';
 import { StudentComponent } from './student/student.component';
 import { CompanyComponent } from './company/company.component';
@@ -20,9 +21,14 @@ import { AppRoutingModule } from './app-routing.module';
 // Services
 import { ToastService } from './_service/toast.service';
 import { FirebaseService } from './_service/firebase.service';
+import { UserService } from './_service/user.service';
+import { RoutingService } from './_service/routing.service';
 
 // Pipes
 import { MyFilterResumePipe } from './_pipe/filter-resume.pipe';
+
+// Guards
+import { LoggedInGuard } from './_guards/logged-in.guard';
 
 export const  firebaseConfig = {
     apiKey: 'AIzaSyCz-zIiaaA73DIdlpOeavfSIomygIipjMk',
@@ -38,6 +44,7 @@ export const  firebaseConfig = {
     HomeComponent,
     PlanningComponent,
     StudentComponent,
+    LoginComponent,
     CompanyComponent,
     PdfViewerComponent,
     MyFilterResumePipe
@@ -50,7 +57,7 @@ export const  firebaseConfig = {
     MaterialModule.forRoot(),
     AngularFireModule.initializeApp(firebaseConfig)
   ],
-  providers: [ToastService, FirebaseService],
+  providers: [ToastService, FirebaseService, UserService, RoutingService, LoggedInGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
