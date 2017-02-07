@@ -10,6 +10,7 @@ import { UserService } from './_service/user.service';
 export class AppComponent {
   window: Window;
   urlGitHub: string = 'https://github.com/papay0/HighFiveINSA';
+  urlTwitter: string = 'https://twitter.com/papay0';
 
   goGitHub(): void {
     window.open(this.urlGitHub);

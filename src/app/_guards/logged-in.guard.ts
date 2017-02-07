@@ -9,7 +9,6 @@ export class LoggedInGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot) {
     if (this.user.isLoggedIn()) {
-        console.log('user is logged in');
         return true;
     }
     this.routingService.setLandingPage('/' + route.url.join('/'));

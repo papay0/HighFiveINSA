@@ -13,20 +13,15 @@ export class LoginComponent {
   loginErrorMessage: string = 'Invalide login or password!';
   onSubmit(event, login, password) {
     event.preventDefault();
-    if (this.userService.login(login, password)) {
-        this.router.navigate([this.routingService.getLandingPage()]);
-    } else {
-        this.loginError = true;
-    }
-    /*
-    this.userService.login(email, password).subscribe((result) => {
+
+    this.userService.login(login, password).then((result) => {
       if (result) {
         this.router.navigate([this.routingService.getLandingPage()]);
       } else {
         this.loginError = true;
       }
     });
-    */
+    
   }
   constructor(private userService: UserService, private router: Router, private routingService: RoutingService) { }
 }

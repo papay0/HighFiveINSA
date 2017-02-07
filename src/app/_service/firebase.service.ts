@@ -6,11 +6,11 @@ import { ToastService } from '../_service/toast.service';
 @Injectable()
 export class FirebaseService {
 
-    uploadResume(student): void {
+    uploadResume(student) {
         let path = this.af.database.list('resumes/');
-        path.push(student).then( success => {
-            this.toastService.show('CV envoyé ! 👍');
-        });
+        return path.push(student).then( success => {
+            return true;
+        }).catch(error => false);
     }
 
 

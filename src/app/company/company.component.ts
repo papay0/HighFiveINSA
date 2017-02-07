@@ -44,6 +44,30 @@ export class CompanyComponent {
         }
     }
 
+    downloadResumes(): void {
+        let urlResumes = new Set();
+        this.resumes.forEach(resumes => {
+            console.log(resumes);
+            for (let _i = 0; _i < resumes.length; _i++) {
+                let resume = resumes[_i];
+                let url = resume.urlResume;
+                for (let spe of this.checkedOptions()) {
+                    if (resume.spe.toLowerCase() === spe.toLowerCase()) {
+                        if (!urlResumes.has(url)) {
+                            urlResumes.add(url);
+                            let link = document.createElement('a');
+                            link.download = name;
+                            link.href = url;
+                            document.body.appendChild(link);
+                            link.click();
+                            document.body.removeChild(link);
+                        }
+                    }
+                }
+            }
+        });
+    }
+
     checkedOptions() {
         let checkOptions = [];
         for (let _i = 0; _i < this.speOptions.length; _i++) {

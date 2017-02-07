@@ -7,6 +7,9 @@
                 {{spe}}
             </md-checkbox>
         </div>
+        <br>
+        <br>
+        <button md-raised-button color="primary" (click)="downloadResumes()">DOWNLOAD CVs</button>
     </md-card-content>
 </md-card>
 
@@ -17,6 +20,7 @@
         <md-card-content>
             <md-input placeholder="Email" value="{{resume.email}}" #email style="width: 100%" type="email" disabled></md-input>
             <md-input placeholder="Téléphone" value="{{resume.phoneNumber}}" #phoneNumber id="phoneNumber" style="width: 100%" disabled ></md-input>
+            <md-input placeholder="Année" value="{{resume.year}}" #year id="year" style="width: 100%" disabled ></md-input>
         </md-card-content>
         <md-card-actions>
             <button md-button (click)="openResume(resume.urlResume)">AFFICHER CV</button>

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import * as firebase from 'firebase';
 import { AngularFire, FirebaseListObservable, AuthProviders, AuthMethods } from 'angularfire2';
 import { ToastService } from '../_service/toast.service';
@@ -42,6 +43,7 @@ export class StudentComponent {
     sendButtonClicked = false;
 
     selectedValueSpe: string;
+    selectedValueYear: string;
     speOptions = ['No Spé', 'Info', 'Bio', 'Elec'];
     years = ['1A', '2A', '3A', '4A', '5A', 'Autre'];
 
@@ -56,7 +58,7 @@ export class StudentComponent {
         let files = event.srcElement.files[0];
         let uploader = document.getElementById('uploader');
         let date = new Date();
-        this.path = 'resumes/' + files.name + '(' + date + ')';
+        this.path = 'resumes/' + '(' + date + ')' + files.name;
         this.storageref = this.storage.child(this.path);
         let task = this.storageref.put(files);
         let imageuploaded;
@@ -89,16 +91,34 @@ export class StudentComponent {
         this.user.phoneNumber = phoneNumber;
         this.user.email = email;
         this.user.spe = this.selectedValueSpe;
+        this.user.year = this.selectedValueYear;
         this.sendButtonClicked = true;
         event.preventDefault();
 
-        this.firebaseService.uploadResume(this.user);
-        console.log('Upload resume');
+        this.firebaseService.uploadResume(this.user).then(done => {
+            if (!done) {
+                this.toastService.show('Problème lors de l\'envoi ! 👎🤕');
+            } else {
+                this.toastService.show('CV envoyé ! 👍');
+                setTimeout(() => {
+                    this.router.navigate(['/']);
+                }, 500);
+            }
+        });
     }
 
-  constructor(af: AngularFire, private toastService: ToastService, private firebaseService: FirebaseService) {
+    clearForm() {
+        this.user = {name: '', surname: '', email: '', phoneNumber: '', urlResume: '', spe: '', year: ''};
+    }
+
+  constructor(af: AngularFire, private toastService: ToastService, private firebaseService: FirebaseService,
+    private router: Router) {
         this.storage = firebase.storage().ref();
         this.urlList = af.database.list('/images').map((array) => array.reverse()) as FirebaseListObservable<any[]>;
         this.user = {name: '', surname: '', email: '', phoneNumber: '', urlResume: '', spe: '', year: ''};
+        af.auth.login({
+            provider: AuthProviders.Anonymous,
+            method: AuthMethods.Anonymous,
+        });
     }
 }

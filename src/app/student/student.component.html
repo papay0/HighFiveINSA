@@ -19,7 +19,7 @@
       </tr>
       <tr>
         <td>
-          <md-select placeholder="Année" #year [(ngModel)]="selectedValue" name="year" required>
+          <md-select placeholder="Année" #year [(ngModel)]="selectedValueYear" name="year" required>
             <md-option *ngFor="let year of years" [value]="year">
               {{year}}
             </md-option>
