@@ -1,4 +1,4 @@
-<md-card layout="column" layout-align="center center"  style="min-height: 500px">
+<md-card layout="column" layout-align="center center">
     <md-tab-group [(selectedIndex)]="selectedIndex">
         <md-tab>
             <template md-tab-label>
@@ -16,9 +16,12 @@
             </template>
         </md-tab>
     </md-tab-group>
-   <md-card-content>
-        <md-list *ngFor="let schedule of schedules[selectedIndex]">
-            <md-list-item> {{schedule.timeTable }} - {{schedule.description}} </md-list-item>
-        </md-list>
-   </md-card-content>
 </md-card>
+<div *ngFor="let schedule of schedules[selectedIndex]">
+    <md-card>
+        <md-card-header>
+            <md-card-title>{{schedule.timeTable }}</md-card-title>
+            <md-card-subtitle>{{schedule.description}}</md-card-subtitle>
+        </md-card-header>
+    </md-card>
+</div>
