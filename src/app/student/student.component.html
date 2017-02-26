@@ -3,18 +3,20 @@
     <table style="width: 100%" cellspacing="0">
       <tr>
         <td>
-          <md-input placeholder="Prénom" #name style="width: 100%" required></md-input>
+          <md-input placeholder="Prénom" #name style="width: 98%" required></md-input>
         </td>
         <td>
-          <md-input placeholder="Nom" #familyName style="width: 100%" required></md-input>
+          <md-input placeholder="Nom" #familyName style="width: 98%" required></md-input>
         </td>
       </tr>
       <tr>
         <td>
-          <md-input placeholder="Email" #email style="width: 100%" type="email" required></md-input>
+          <md-input placeholder="Email" #email style="width: 98%" type="email" (change)="emailUpdated($event)" required>
+            <md-hint *ngIf="emailAlreadyPresent" [ngStyle]="{'color': 'red'}" align="start">Email already present!</md-hint>
+          </md-input>
         </td>
         <td>
-          <md-input placeholder="Téléphone" #phoneNumber id="phoneNumber" style="width: 100%"></md-input>
+          <md-input placeholder="Téléphone" #phoneNumber id="phoneNumber" style="width: 98%"></md-input>
         </td>
       </tr>
       <tr>
@@ -42,11 +44,11 @@
       </md-checkbox>
     </table>
     <br>
-    <div *ngIf="progress_bar !== 0">
+    <div *ngIf="progress_bar !== -1">
       <md-progress-bar mode="determinate" value="{{progress_bar}}"></md-progress-bar> {{progress_bar}}%
     </div>
     <md-card-actions layout="row" layout-align="end center">
-      <button md-raised-button color="warn" style="float: right" type="submit" [disabled]="progress_bar != 100.00 || !conditionChecked">
+      <button md-raised-button color="warn" style="float: right" type="submit" [disabled]="progress_bar == -1 || !conditionChecked || emailAlreadyPresent">
             SEND IT
         </button>
     </md-card-actions>

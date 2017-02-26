@@ -37,8 +37,9 @@ export class StudentComponent {
     prog;
     reset: boolean = true;
     urlList: FirebaseListObservable<any[]>;
+    resumes: FirebaseListObservable<any>;
 
-    progress_bar = 0;
+    progress_bar = -1;
 
     sendButtonClicked = false;
 
@@ -52,34 +53,42 @@ export class StudentComponent {
 
     conditionChecked: boolean = false;
 
+    file;
+    arrayEmail: string[] = [];
+    emailAlreadyPresent = false;
+
 
     filebuttoni(event) {
         this.imageuploaded = 'notSet';
-        let files = event.srcElement.files[0];
+        this.file = event.srcElement.files[0];
+        this.progress_bar = 0.0;
+    }
+
+    uploadResume(file, user) {
         let uploader = document.getElementById('uploader');
         let date = new Date();
-        this.path = 'resumes/' + files.name;
+        this.path = 'resumes/' + file.name;
         this.storageref = this.storage.child(this.path);
-        let task = this.storageref.put(files);
+        let task = this.storageref.put(file);
         let imageuploaded;
         let percentage;
         let set = false;
         let that = this;
-        let size = files.size;
+        let size = file.size;
         if (size <= 5 * Math.pow(10, 6)) {
             task.on('state_changed',
-            function progress(snapshot){
-                percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                that.progress_bar = percentage.toFixed(2);
-                // console.log(that.progress_bar);
-            }, function (error) {
-                console.log('Error: ' + error);
-                that.toastService.show('Erreur lors de l\'envoie du CV ☹️');
-            }, function (success) {
-                that.urlResume = task.snapshot.downloadURL;
-                that.user.urlResume = task.snapshot.downloadURL;
-            }
-        );
+                function progress(snapshot) {
+                    percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                    that.progress_bar = percentage.toFixed(2);
+                }, function (error) {
+                    console.log('Error: ' + error);
+                    that.toastService.show('Erreur lors de l\'envoie du CV ☹️');
+                }, function (success) {
+                    that.urlResume = task.snapshot.downloadURL;
+                    that.user.urlResume = task.snapshot.downloadURL;
+                    that.uploadUser(user);
+                }
+            );
         } else {
             this.toastService.show('Fichier trop volumineux 🐳');
         }
@@ -94,31 +103,55 @@ export class StudentComponent {
         this.user.year = this.selectedValueYear;
         this.sendButtonClicked = true;
         event.preventDefault();
+        let that = this;
+        this.uploadResume(this.file, this.user);
+    }
 
-        this.firebaseService.uploadResume(this.user).then(done => {
+    uploadUser(user) {
+        this.firebaseService.uploadResume(user).then(done => {
             if (!done) {
                 this.toastService.show('Problème lors de l\'envoi ! 👎🤕');
             } else {
                 this.toastService.show('CV envoyé ! 👍');
                 setTimeout(() => {
                     this.router.navigate(['/']);
-                }, 500);
+                }, 1000);
             }
         });
     }
 
-    clearForm() {
-        this.user = {name: '', surname: '', email: '', phoneNumber: '', urlResume: '', spe: '', year: ''};
+    emailUpdated(event) {
+        let email = event.target.value;
+        if (this.arrayEmail.indexOf(email) > -1) {
+            this.emailAlreadyPresent = true;
+        } else {
+            this.emailAlreadyPresent = false;
+        }
     }
 
-  constructor(af: AngularFire, private toastService: ToastService, private firebaseService: FirebaseService,
-    private router: Router) {
+    clearForm() {
+        this.user = { name: '', surname: '', email: '', phoneNumber: '', urlResume: '', spe: '', year: '' };
+    }
+
+    createListEmails() {
+        this.resumes.forEach(resumes => {
+            for (let _i = 0; _i < resumes.length; _i++) {
+                let email = resumes[_i].email;
+                this.arrayEmail.push(email);
+            }
+        });
+    }
+
+    constructor(af: AngularFire, private toastService: ToastService, private firebaseService: FirebaseService,
+        private router: Router) {
         this.storage = firebase.storage().ref();
+        this.resumes = af.database.list('resumes');
         this.urlList = af.database.list('/images').map((array) => array.reverse()) as FirebaseListObservable<any[]>;
-        this.user = {name: '', surname: '', email: '', phoneNumber: '', urlResume: '', spe: '', year: ''};
+        this.user = { name: '', surname: '', email: '', phoneNumber: '', urlResume: '', spe: '', year: '' };
         af.auth.login({
             provider: AuthProviders.Anonymous,
             method: AuthMethods.Anonymous,
         });
+        this.createListEmails();
     }
 }
