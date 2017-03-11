@@ -2,7 +2,7 @@
 
 This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.24.
 
-## Development in production
+## Deploy in production
 Run `ng build`, upload the files of the dist directory. Do not forget to adapt the base href (index.html) to the path of your server.
 
 ## Development server
