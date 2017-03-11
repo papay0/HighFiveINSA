@@ -5,12 +5,10 @@ export class RoutingService {
     private landingPage: string = '/';
 
     setLandingPage(landingPage: string): void {
-        console.log('set: ' + landingPage);
         this.landingPage = landingPage;
     }
 
     getLandingPage(): string {
-        console.log('get: ' + this.landingPage);
         let landingPage = this.landingPage;
         this.landingPage = '/'; // so that I do not land again if I didn't ask it
         return landingPage;

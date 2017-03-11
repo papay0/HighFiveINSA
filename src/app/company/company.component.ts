@@ -17,7 +17,20 @@ import { IUser } from '../_model/user.model';
 export class CompanyComponent {
 
     resumes: FirebaseListObservable<any>;
-    speOptions = ['Toutes', 'Info', 'Bio', 'Elec'];
+    speOptions = [
+        'Toutes',
+        'No spé',
+        'Info',
+        'Maths',
+        'Bio',
+        'Chimie',
+        'Meca',
+        'Elec',
+        'Archi',
+        'Energétique',
+        'Automatique',
+        'Physique',
+        'Autre'];
     checkBoxSpe = [];
     currentUrlResume: string;
     window: Window;
@@ -47,7 +60,6 @@ export class CompanyComponent {
     downloadResumes(): void {
         let urlResumes = new Set();
         this.resumes.forEach(resumes => {
-            console.log(resumes);
             for (let _i = 0; _i < resumes.length; _i++) {
                 let resume = resumes[_i];
                 let url = resume.urlResume;

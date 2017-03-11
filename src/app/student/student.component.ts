@@ -45,7 +45,19 @@ export class StudentComponent {
 
     selectedValueSpe: string;
     selectedValueYear: string;
-    speOptions = ['No Spé', 'Info', 'Bio', 'Elec'];
+    speOptions = [
+        'No spé',
+        'Info',
+        'Maths',
+        'Bio',
+        'Chimie',
+        'Meca',
+        'Elec',
+        'Archi',
+        'Energétique',
+        'Automatique',
+        'Physique',
+        'Autre'];
     years = ['1A', '2A', '3A', '4A', '5A', 'Autre'];
 
     urlResume: string;
@@ -81,7 +93,6 @@ export class StudentComponent {
                     percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
                     that.progress_bar = percentage.toFixed(2);
                 }, function (error) {
-                    console.log('Error: ' + error);
                     that.toastService.show('Erreur lors de l\'envoie du CV ☹️');
                 }, function (success) {
                     that.urlResume = task.snapshot.downloadURL;
