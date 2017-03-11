@@ -5,13 +5,15 @@ import { Pipe, PipeTransform } from '@angular/core';
     pure: false
 })
 export class MyFilterResumePipe implements PipeTransform {
-    transform(resumes: any[], checkOptions): any {
+    transform(resumes: any[], checkOptions, checkYears): any {
         let filteredResume = [];
         if (resumes) {
             for (let resume of resumes) {
                 for (let spe of checkOptions) {
-                    if (resume.spe.toLowerCase() === spe.toLowerCase()) {
-                        filteredResume.push(resume);
+                    for (let year of checkYears) {
+                        if (resume.spe.toLowerCase() === spe.toLowerCase() && resume.year.toLowerCase() === year.toLowerCase()) {
+                            filteredResume.push(resume);
+                        }
                     }
                 }
             }
@@ -21,4 +23,3 @@ export class MyFilterResumePipe implements PipeTransform {
         }
     }
 }
-

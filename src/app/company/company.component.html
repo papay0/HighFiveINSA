@@ -1,5 +1,13 @@
 <md-card>
     <md-card-title>Liste des CVs</md-card-title>
+    <md-card-subtitle>Choix des années</md-card-subtitle>   
+    <md-card-content>
+        <div *ngFor="let year of years; let i = index" style="display: inline">
+            <md-checkbox [checked]="checkBoxYear[i]" (change)="updateCheckedYears(i, $event)">
+                {{year}}
+            </md-checkbox>
+        </div>
+    </md-card-content>
     <md-card-subtitle>Choix des spés</md-card-subtitle>   
     <md-card-content>
         <div *ngFor="let spe of speOptions; let i = index" style="display: inline">
@@ -13,7 +21,7 @@
     </md-card-content>
 </md-card>
 
-<div *ngFor="let resume of (resumes | async | myfilterResume: checkedOptions())">
+<div *ngFor="let resume of (resumes | async | myfilterResume: checkedOptions(): checkedYears())">
     <md-card>
         <md-card-title>{{resume.spe}}</md-card-title>
         <md-card-subtitle>{{resume.name}} {{resume.surname}}</md-card-subtitle>   

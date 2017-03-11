@@ -31,7 +31,9 @@ export class CompanyComponent {
         'Automatique',
         'Physique',
         'Autre'];
+    years = ['Toutes', '1A', '2A', '3A', '4A', '5A', 'Autre'];
     checkBoxSpe = [];
+    checkBoxYear = [];
     currentUrlResume: string;
     window: Window;
 
@@ -53,6 +55,28 @@ export class CompanyComponent {
                 this.checkBoxSpe[0] = event.checked;
             } else {
                 this.checkBoxSpe[0] = false; // not full
+            }
+        }
+    }
+
+    updateCheckedYears(index, event) {
+        if (index === 0) {
+            for (let _i = 0; _i < this.years.length; _i++) {
+                this.checkBoxYear[_i] = event.checked;
+            }
+        } else {
+            this.checkBoxYear[index] = event.checked;
+            let expectedNumberChecked = this.checkBoxYear.length - 1; // all but the first one
+            let currentNumberChecked = 0;
+            for (let _i = 1; _i < this.years.length; _i++) {
+                if (this.checkBoxYear[_i] === event.checked) {
+                    currentNumberChecked += 1;
+                }
+            }
+            if (currentNumberChecked === expectedNumberChecked) { // first one change to event.checked (either all full or empty)
+                this.checkBoxYear[0] = event.checked;
+            } else {
+                this.checkBoxYear[0] = false; // not full
             }
         }
     }
@@ -90,6 +114,16 @@ export class CompanyComponent {
         return checkOptions;
     }
 
+    checkedYears() {
+        let checkYears = [];
+        for (let _i = 0; _i < this.years.length; _i++) {
+            if (this.checkBoxYear[_i]) {
+                checkYears.push(this.years[_i]);
+            }
+        }
+        return checkYears;
+    }
+
     openResume(urlResume) {
         window.open(urlResume);
     }
@@ -98,6 +132,9 @@ export class CompanyComponent {
         this.resumes = af.database.list('resumes');
         for (let _i = 0; _i < this.speOptions.length; _i++) {
             this.checkBoxSpe.push(true);
+        }
+        for (let _i = 0; _i < this.years.length; _i++) {
+            this.checkBoxYear.push(true);
         }
     }
 }
