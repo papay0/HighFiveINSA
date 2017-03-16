@@ -3,15 +3,15 @@
     <md-card-subtitle>Choix des années</md-card-subtitle>   
     <md-card-content>
         <div *ngFor="let year of years; let i = index" style="display: inline">
-            <md-checkbox [checked]="checkBoxYear[i]" (change)="updateCheckedYears(i, $event)">
-                {{year}}
-            </md-checkbox>
+                    <md-checkbox [checked]="checkBoxYear[i]" (change)="updateCheckedYears(i, $event)" style="margin-left: 20px">
+                        {{year}}
+                    </md-checkbox>
         </div>
     </md-card-content>
     <md-card-subtitle>Choix des spés</md-card-subtitle>   
     <md-card-content>
         <div *ngFor="let spe of speOptions; let i = index" style="display: inline">
-            <md-checkbox [checked]="checkBoxSpe[i]" (change)="updateCheckedOptions(i, $event)">
+            <md-checkbox [checked]="checkBoxSpe[i]" (change)="updateCheckedOptions(i, $event)" style="margin-left: 20px">
                 {{spe}}
             </md-checkbox>
         </div>

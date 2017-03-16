@@ -88,15 +88,17 @@ export class CompanyComponent {
                 let resume = resumes[_i];
                 let url = resume.urlResume;
                 for (let spe of this.checkedOptions()) {
-                    if (resume.spe.toLowerCase() === spe.toLowerCase()) {
-                        if (!urlResumes.has(url)) {
-                            urlResumes.add(url);
-                            let link = document.createElement('a');
-                            link.download = name;
-                            link.href = url;
-                            document.body.appendChild(link);
-                            link.click();
-                            document.body.removeChild(link);
+                    for (let year of this.checkedYears()) {
+                        if (resume.spe.toLowerCase() === spe.toLowerCase() && resume.year.toLowerCase() === year.toLowerCase()) {
+                            if (!urlResumes.has(url)) {
+                                urlResumes.add(url);
+                                let link = document.createElement('a');
+                                link.download = name;
+                                link.href = url;
+                                document.body.appendChild(link);
+                                link.click();
+                                document.body.removeChild(link);
+                            }
                         }
                     }
                 }

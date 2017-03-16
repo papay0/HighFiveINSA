@@ -87,6 +87,11 @@ export class StudentComponent {
         let set = false;
         let that = this;
         let size = file.size;
+        const type = file.type;
+        if (type !== 'application/pdf') {
+            this.toastService.show('Fichier doit être au format PDF 😡');
+            return;
+        }
         if (size <= 5 * Math.pow(10, 6)) {
             task.on('state_changed',
                 function progress(snapshot) {
