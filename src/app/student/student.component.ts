@@ -72,7 +72,7 @@ export class StudentComponent {
 
     filebuttoni(event) {
         this.imageuploaded = 'notSet';
-        this.file = event.srcElement.files[0];
+        this.file = event.target.files[0];
         this.progress_bar = 0.0;
     }
 
