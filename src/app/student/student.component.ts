@@ -79,7 +79,8 @@ export class StudentComponent {
     uploadResume(file, user) {
         let uploader = document.getElementById('uploader');
         let date = new Date();
-        this.path = 'resumes/' + file.name;
+        const fileName = new Date().getTime() + '-' + file.name;
+        this.path = 'resumes/' + fileName;
         this.storageref = this.storage.child(this.path);
         let task = this.storageref.put(file);
         let imageuploaded;
@@ -111,6 +112,10 @@ export class StudentComponent {
     }
 
     onSubmit(event, name, surname, phoneNumber, email, spe, year) {
+        if (!name || !surname || !email || !this.selectedValueSpe || !this.selectedValueYear) {
+            this.toastService.show('Veuillez remplir tous les champs obligatoires ! ️✍️');
+            return;
+        }
         this.user.name = name;
         this.user.surname = surname;
         this.user.phoneNumber = phoneNumber;
